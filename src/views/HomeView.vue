@@ -1,0 +1,228 @@
+<script>
+export default {
+  data() {
+    return {
+      posts: [],
+      newPost: {},
+      showModal: false,
+      editedPost: {
+        title: null,
+        text: null,
+        index: -1,
+      },
+    };
+  },
+  methods: {
+    addNewPost() {
+      if (!this.newPost.title || !this.newPost.text) {
+        alert("Para adicionar um novo post o título ou texto não pode estar vazio!");
+      } else {
+        this.newPost.id = Math.floor(Math.random() * 100) + 1;
+        this.posts.push(this.newPost);
+        this.newPost = {};
+      }
+    },
+    removePost(index) {
+      this.posts.splice(index, 1);
+    },
+    openEditModal(index) {
+      this.editedPost = { ...this.posts[index], index };
+      this.showModal = !this.showModal;
+    },
+    saveChanges() {
+      const { index, title, text } = this.editedPost;
+      this.posts[index].title = title;
+      this.posts[index].text = text;
+      this.showModal = !this.showModal;
+    },
+    copyText() {
+      const card = event.target.closest("#card");
+      const textToCopy = card.querySelector("p").innerText;
+
+      navigator.clipboard
+        .writeText(textToCopy)
+        .then(() => {
+          alert('Texto copiado para o clipboard.')
+        })
+        .catch((err) => {
+          console.error("Erro ao copiar texto:", err);
+        });
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+  },
+};
+</script>
+
+<template>
+  <div class="flex flex-wrap justify-center m-2">
+    <input
+      class="border border-gray-700 rounded-md m-2 pl-2"
+      type="text"
+      v-model="newPost.title"
+      placeholder="título"
+    />
+    <input
+      class="border border-gray-700 rounded-md m-2 pl-2"
+      type="<textarea"
+      v-model="newPost.text"
+      placeholder="texto"
+    />
+    <button
+      @click="addNewPost()"
+      class="m-2 py-2 px-4 capitalize tracking-wide bg-gray-700 text-white font-medium rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+    >
+      Adicionar
+    </button>
+  </div>
+
+  <div v-if="!posts.length" class="flex flex-wrap justify-center mt-16">
+    <p class="text-xl font-medium leading-tight text-black dark:text-neutral-50">
+      NENHUM POST A SER MOSTRADO NO MOMENTO...
+    </p>
+  </div>
+
+  <div
+    v-if="showModal"
+    class="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+    style="background: rgba(0, 0, 0, 0.7)"
+  >
+    <div
+      class="border border-gray-900 shadow-lg modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto"
+    >
+      <div class="modal-content py-4 text-left px-6">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Editar Post</p>
+          <div @click="toggleModal()" class="modal-close cursor-pointer z-50">
+            <svg
+              class="fill-current text-black"
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+            >
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="my-5 flex flex-col space-y-4">
+          <input
+            v-model="editedPost.title"
+            class="border border-gray-700 rounded-md m-2 pl-2"
+            type="text"
+            placeholder="titulo"
+          />
+          <input
+            v-model="editedPost.text"
+            class="border border-gray-700 rounded-md m-2 pl-2"
+            type="text"
+            placeholder="texto"
+          />
+        </div>
+        <div class="flex justify-end pt-2">
+          <button
+            @click="toggleModal()"
+            class="focus:outline-none modal-close px-4 border border-black p-3 rounded-lg text-black hover:bg-gray-400"
+          >
+            Cancelar
+          </button>
+          <button
+            @click="saveChanges()"
+            class="focus:outline-none px-4 bg-gray-700 p-3 ml-3 rounded-lg text-white hover:bg-gray-600"
+          >
+            Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap justify-center">
+    <div
+      v-for="(post, index) in posts"
+      :key="post.id"
+      id="card"
+      class="m-7 block max-w-[18rem] rounded-lg border border-neutral-700 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-600"
+    >
+      <div
+        class="border-b-2 border-[#0000002d] px-6 py-3 text-neutral-600 dark:text-neutral-50"
+      >
+        POST#{{ post.id }}
+      </div>
+      <div class="p-6">
+        <h5 class="mb-2 text-xl font-medium leading-tight text-black dark:text-neutral-50">
+          {{ post.title }}
+        </h5>
+        <p class="text-base text-black dark:text-neutral-50">
+          {{ post.text }}
+        </p>
+        <div class="mt-3">
+          <button
+            @click="openEditModal(index)"
+            class="mr-3 inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-gray-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-pencil"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+              />
+            </svg>
+          </button>
+          <button
+            @click="removePost(index)"
+            class="inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-red-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-x-lg"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+              />
+            </svg>
+          </button>
+
+          <button
+            @click="copyText()"
+            class="inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-gray-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-clipboard2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z"
+              />
+              <path
+                d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+.active {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+</style>
