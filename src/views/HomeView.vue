@@ -77,7 +77,7 @@ export default {
     </button>
   </div>
 
-  <div v-if="!posts.length" class="flex flex-wrap justify-center mt-16">
+  <div v-if="!posts.length" class="flex flex-wrap justify-center mt-16 no-post-container">
     <p class="text-xl font-medium leading-tight text-black dark:text-neutral-50">
       NENHUM POST A SER MOSTRADO NO MOMENTO...
     </p>
