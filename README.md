@@ -10,10 +10,8 @@ HTML5 | CSS3 | Tailwind CSS | JavaScript | Vitest
 
 Navigate to the project's root directory in the terminal and run the command `npm install`, then execute the command `npm run dev`. The localhost link will appear in the terminal for you to access. Just copy and paste it into your preferred browser and test the project.
 
-# Rodar os testes unitarios
+# Run unit tests
 
 To run the unit tests, open your terminal at the project's root and execute the command `npm run test:unit`. Afterward, your default browser will open with the Vitest-generated interface running all the unit test files.
 
-## Coming in a future update:
-  - drag and drop;
-  - Local storage;
+https://e-post-it.vercel.app/
