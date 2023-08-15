@@ -7,3 +7,24 @@
 html {
   font-family: 'Tektur', cursive;
 }
+
+.router-link-exact-active {
+  text-decoration: 3px underline;
+  font-weight: bold;
+}
+
+@media (max-width: 539px) {
+  nav {
+    padding: 0 30px;
+  }
+
+  .add-input-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .add-input-container input {
+    width: 40%;
+  }
+}

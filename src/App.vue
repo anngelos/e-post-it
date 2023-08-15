@@ -20,10 +20,3 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
   <RouterView/>
 </template>
-
-<style>
-.router-link-exact-active {
-  text-decoration: 3px underline;
-  font-weight: bold;
-}
-</style>

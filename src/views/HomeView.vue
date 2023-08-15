@@ -67,7 +67,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center m-2">
+  <div class="flex flex-wrap justify-center m-2 add-input-container">
     <input class="border border-gray-700 rounded-md m-2 pl-2" type="text" v-model="newPost.title" placeholder="título" />
     <input class="border border-gray-700 rounded-md m-2 pl-2" type="<textarea" v-model="newPost.text"
       placeholder="texto" />
