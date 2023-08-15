@@ -30,10 +30,15 @@ export default {
       this.showModal = !this.showModal;
     },
     saveChanges() {
-      const { index, title, text } = this.editedPost;
-      this.posts[index].title = title;
-      this.posts[index].text = text;
-      this.showModal = !this.showModal;
+      if (!this.editedPost.title || !this.editedPost.text) {
+        alert("Para editar um post-it o título ou texto não pode estar vazio!");
+      } else {
+        const { index, title, text } = this.editedPost;
+        this.posts[index].title = title;
+        this.posts[index].text = text;
+        this.showModal = !this.showModal;
+      }
+
     },
     copyText() {
       const card = event.target.closest("#card");
