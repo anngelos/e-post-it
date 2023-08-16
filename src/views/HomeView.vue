@@ -23,6 +23,7 @@ export default {
         this.newPost.id = Math.floor(Math.random() * 100) + 1;
         this.posts.push(this.newPost);
         this.newPost = {};
+        localStorage.setItem("posts", JSON.stringify(this.posts));
       }
     },
     removePost(index) {
@@ -62,6 +63,12 @@ export default {
     getPostKey(post) {
       return post.id;
     },
+    storePosts() {
+      localStorage.setItem("posts", JSON.stringify(this.posts));
+    }
+  },
+  created() {
+    this.posts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem("posts")) : this.posts;
   },
 };
 </script>
@@ -71,7 +78,7 @@ export default {
     <input class="border border-gray-700 rounded-md m-2 pl-2" type="text" v-model="newPost.title" placeholder="título" />
     <input class="border border-gray-700 rounded-md m-2 pl-2" type="<textarea" v-model="newPost.text"
       placeholder="texto" />
-    <button @click="addNewPost()"
+    <button @click="addNewPost(); storePosts()"
       class="m-2 py-2 px-4 capitalize tracking-wide bg-gray-700 text-white font-medium rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
       Adicionar
     </button>
@@ -111,7 +118,7 @@ export default {
             class="focus:outline-none modal-close px-4 border border-black p-3 rounded-lg text-black hover:bg-gray-400">
             Cancelar
           </button>
-          <button @click="saveChanges()"
+          <button @click="saveChanges(); storePosts()"
             class="focus:outline-none px-4 bg-gray-700 p-3 ml-3 rounded-lg text-white hover:bg-gray-600">
             Salvar
           </button>
@@ -143,7 +150,7 @@ export default {
                   d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
               </svg>
             </button>
-            <button @click="removePost(index)"
+            <button @click="removePost(index); storePosts()"
               class="inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-red-600">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
                 viewBox="0 0 16 16">
