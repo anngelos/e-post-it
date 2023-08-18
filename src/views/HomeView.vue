@@ -127,11 +127,11 @@ export default {
     </div>
   </div>
 
-  <draggable v-model="posts" :itemKey="getPostKey" drag-class="draggin" ghost-class="ghost-drag" class="flex flex-wrap justify-center">
+  <draggable v-model="posts" :itemKey="getPostKey" drag-class="draggin" ghost-class="ghost-drag" class="flex flex-wrap justify-center container-cards">
     <template #item="{ element: post, index }">
       <div :key="post.id" id="card"
         class="m-7 block max-w-[18rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-600">
-        <div class="border-b-2 border-[#0000002d] px-6 py-2 text-neutral-600 dark:text-neutral-50 post-id">
+        <div class="flex justify-center border-b-2 border-[#0000002d] px-6 py-2 text-neutral-600 dark:text-neutral-50 post-id">
           #{{ post.id }}
         </div>
         <div class="p-6">
@@ -204,7 +204,7 @@ export default {
 
 .icon:hover {
   -xpedu-transform: scale(1.3);
-        -ms-transform: scale(1.3);
-        transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
 }
 </style>
