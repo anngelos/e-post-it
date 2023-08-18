@@ -6,26 +6,29 @@
 
 html {
   font-family: "Tektur", cursive;
+  background-color: #D9DBDF;
 }
 
 .router-link-exact-active {
-  text-decoration: 3px underline;
+  text-decoration: 2px underline;
   font-weight: bold;
 }
 
 @media (max-width: 539px) {
-  nav {
-    padding: 0 30px;
-  }
-
   .add-input-container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: flex;
   }
+}
 
-  .add-input-container input {
-    width: 40%;
+@media (max-width: 767px) {
+  .menu-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
   }
 }
 
