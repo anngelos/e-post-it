@@ -65,7 +65,13 @@ export default {
     },
     storePosts() {
       localStorage.setItem("posts", JSON.stringify(this.posts));
-    }
+    },
+    onDragEnd() {
+      // Atualize o array cardList com a nova ordem após o arrasto
+      // Isso é apenas um exemplo simples, você pode precisar adaptá-lo à sua lógica
+      this.posts = [...this.posts];
+      this.storePosts()
+    },
   },
   created() {
     this.posts = localStorage.getItem('posts') ? JSON.parse(localStorage.getItem("posts")) : this.posts;
@@ -127,11 +133,13 @@ export default {
     </div>
   </div>
 
-  <draggable v-model="posts" :itemKey="getPostKey" drag-class="draggin" ghost-class="ghost-drag" class="flex flex-wrap justify-center container-cards">
+  <draggable v-model="posts" @end="onDragEnd" :itemKey="getPostKey" drag-class="draggin" ghost-class="ghost-drag"
+    class="flex flex-wrap justify-center container-cards">
     <template #item="{ element: post, index }">
       <div :key="post.id" id="card"
         class="m-7 block max-w-[18rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-600">
-        <div class="flex justify-center border-b-2 border-[#0000002d] px-6 py-2 text-neutral-600 dark:text-neutral-50 post-id">
+        <div
+          class="flex justify-center border-b-2 border-[#0000002d] px-6 py-2 text-neutral-600 dark:text-neutral-50 post-id">
           #{{ post.id }}
         </div>
         <div class="p-6">
@@ -144,13 +152,16 @@ export default {
           <div class="mt-3">
             <button @click="openEditModal(index)"
               class="mr-3 inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 rounded-full focus:shadow-outline icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
               </svg>
             </button>
             <button @click="removePost(index); storePosts()"
-            class="mr-3 inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 rounded-full focus:shadow-outline icon">
+              class="mr-3 inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 rounded-full focus:shadow-outline icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
                 viewBox="0 0 16 16">
                 <path
@@ -159,7 +170,7 @@ export default {
             </button>
 
             <button @click="copyText()"
-            class="mr-3 inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 rounded-full focus:shadow-outline icon">
+              class="mr-3 inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 rounded-full focus:shadow-outline icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2"
                 viewBox="0 0 16 16">
                 <path
