@@ -130,9 +130,9 @@ export default {
   <draggable v-model="posts" :itemKey="getPostKey" drag-class="draggin" ghost-class="ghost-drag" class="flex flex-wrap justify-center">
     <template #item="{ element: post, index }">
       <div :key="post.id" id="card"
-        class="m-7 block max-w-[18rem] rounded-lg border border-neutral-700 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-600">
-        <div class="border-b-2 border-[#0000002d] px-6 py-3 text-neutral-600 dark:text-neutral-50 post-id">
-          POST#{{ post.id }}
+        class="m-7 block max-w-[18rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-600">
+        <div class="border-b-2 border-[#0000002d] px-6 py-2 text-neutral-600 dark:text-neutral-50 post-id">
+          #{{ post.id }}
         </div>
         <div class="p-6">
           <h5 class="mb-2 text-xl font-medium leading-tight text-black dark:text-neutral-50 post-title">
@@ -143,15 +143,14 @@ export default {
           </p>
           <div class="mt-3">
             <button @click="openEditModal(index)"
-              class="mr-3 inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-gray-500">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil"
-                viewBox="0 0 16 16">
-                <path
-                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+              class="mr-3 inline-flex items-center justify-center w-10 h-10 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg>
             </button>
             <button @click="removePost(index); storePosts()"
-              class="inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-red-600">
+            class="mr-3 inline-flex items-center justify-center w-10 h-10 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-gray-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
                 viewBox="0 0 16 16">
                 <path
@@ -160,7 +159,7 @@ export default {
             </button>
 
             <button @click="copyText()"
-              class="inline-flex items-center justify-center w-10 h-10 mr-2 text-indigo-100 transition-colors duration-150 bg-gray-700 rounded-full focus:shadow-outline hover:bg-gray-500">
+            class="mr-3 inline-flex items-center justify-center w-10 h-10 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-gray-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2"
                 viewBox="0 0 16 16">
                 <path
