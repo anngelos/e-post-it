@@ -10,7 +10,6 @@ html {
 }
 
 .router-link-exact-active {
-  text-decoration: 2px underline;
   font-weight: bold;
 }
 
