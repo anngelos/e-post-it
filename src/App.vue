@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from "vue-router";
   <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <div class="flex items-center">
-        <img src="./../public/note-512.png" class="h-8 mr-3"/>
+        <img src="./assets/note-512.png" class="h-8 mr-3"/>
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ePost-It</span>
       </div>
       <div class="items-center justify-between w-full md:flex md:w-auto md:order-1 menu-container" id="navbar-search">
